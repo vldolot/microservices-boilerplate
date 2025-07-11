@@ -1,0 +1,22 @@
+{
+  "name": "@monorepo/product",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "test": "bun test",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.13.4",
+    "@monorepo/shared": "workspace:*",
+    "elysia": "^1.3.5"
+  }
+}

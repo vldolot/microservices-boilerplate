@@ -1,0 +1,11 @@
+{
+  "name": "microservices-boilerplate",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["services/*", "shared"],
+  "scripts": {
+    "build": "bun run --recursive build",
+    "proto:gen": "cd shared && bun run proto:gen",
+    "proto:gen2": "protoc --plugin=protoc-gen-ts_proto=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./shared/proto/generated --proto_path=./shared/proto ./shared/proto/**/*.proto --ts_proto_opt=outputServices=grpc-js,env=node,useOptionals=messages,exportCommonSymbols=false"
+  }
+}

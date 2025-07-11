@@ -1,0 +1,22 @@
+{
+  "name": "@monorepo/notification",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "bun run src/index.ts",
+    "test": "bun test",
+    "lint": "eslint . --ext .ts"
+
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.7",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.8"
+  }
+}

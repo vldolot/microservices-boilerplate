@@ -1,0 +1,16 @@
+{
+  "name": "@monorepo/shared",
+  "version": "1.0.0",
+  "scripts": {
+    "proto:gen": "bunx protoc --plugin=protoc-gen-ts_proto=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto/generated --proto_path=./proto ./proto/**/*.proto --ts_proto_opt=outputServices=grpc-js,env=modern,useOptionals=messages,exportCommonSymbols=false"
+  },
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.6.0",
+    "@grpc/grpc-js": "^1.9.0",
+    "@protobuf-ts/protoc": "^2.11.1",
+    "ts-proto": "^2.7.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

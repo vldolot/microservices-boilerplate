@@ -1,0 +1,14 @@
+
+replicaCount: 1
+
+image:
+  repository: user
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 3000
+
+grpc:
+  port: 50051

@@ -1,0 +1,49 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Release.Name }}-user
+  labels:
+    app: user
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+        - name: user
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+              livenessProbe:
+                httpGet:
+                  path: /health
+                  port: {{ .Values.service.port }}
+                initialDelaySeconds: 30
+              readinessProbe:
+                httpGet:
+                  path: /health
+                  port: {{ .Values.service.port }}
+                initialDelaySeconds: 5
+            - name: grpc
+              containerPort: {{ .Values.grpc.port }}
+              protocol: TCP
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause: { duration: 10s }
+      - setWeight: 40
+      - pause: { duration: 10s }
+      - setWeight: 60
+      - pause: { duration: 10s }
+      - setWeight: 80
+      - pause: { duration: 10s }

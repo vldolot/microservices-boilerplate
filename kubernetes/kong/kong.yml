@@ -1,0 +1,19 @@
+
+_format_version: "3.0"
+
+services:
+  - name: user
+    url: http://user:3000
+    routes:
+      - name: user-route
+        paths:
+          - /users
+
+  - name: product
+    url: http://product:3000
+    routes:
+      - name: product-route
+        path_handling: v1
+        strip_path: false
+        paths:
+          - /products/

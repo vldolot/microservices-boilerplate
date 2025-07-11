@@ -1,0 +1,30 @@
+
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'user'
+    static_configs:
+      - targets: ['user:3000']
+    metrics_path: /metrics
+    scrape_interval: 5s
+
+  - job_name: 'kong'
+    static_configs:
+      - targets: ['kong:8001']
+
+  - job_name: 'kubernetes-pods'
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+        action: keep
+        regex: true
+      - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+        action: replace
+        target_label: __metrics_path__
+        regex: (.+)
